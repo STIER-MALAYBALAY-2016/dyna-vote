@@ -30,33 +30,32 @@
                 {% for candidate in position.position_candidates.all %}
                     
                         <div class="col-md-6">
-                                <div class="card mb-3">
+                                <div class="card mb-3 candi_{{candidate.id}}">
                                     <div class="row g-0">
                                         <div class="col-md-3">
                                         <img height="100px" width="100px" src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg" alt="...">
                                         </div>
                                         <div class="col-md-9">
                                         <div class="card-body">
+
+                                             <div class="form-check form-switch float-end">
+                                                    <label class="form-check-label"> 
+                                                    <input class="form-check-input s{{position.id}}" type="checkbox">
+                                                    Vote</label>
+                                                </div>
+
                                             <h5 class="card-title">{{candidate}}</h5>
-                                            <p class="card-text">{{candidate.party}}</p>
+                                            {{candidate.party}} Party
                                         
-                                        
-                                    <div class="d-flex bd-highlight">
-                                        <div class="flex-grow-1 bd-highlight">
-                                                <div class="progress">
+
+
+                                                 <div class="progress">
                                                     <div class="progress-bar" role="progressbar" style="width: {{candidate.getProgress}}%;" aria-valuenow="{{candidate.getProgress}}" aria-valuemin="0" aria-valuemax="100">{{candidate.getProgress}} %
                                                     </div>
                                                 </div>
-                                        </div>
-                                        <div class="bd-highlight">
-                                            <div class="form-check form-switch">
-                                                <label class="form-check-label"> 
-                                                <input class="form-check-input s{{position.id}}" type="checkbox">
-                                                Vote</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                              
 
+                                               
 
                                         
 
@@ -89,6 +88,7 @@
 
                 $(".s{{position.id}}:input:checkbox").each(function (index){
                     this.checked = (".s{{position.id}}:input:checkbox" < {{position.num_candidate}});
+                
                 }).change(function (){
                     if ($(".s{{position.id}}:input:checkbox:checked").length > {{position.num_candidate}}){
                         this.checked = false;
