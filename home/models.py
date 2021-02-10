@@ -50,6 +50,11 @@ class Position(models.Model):
     
     def getCandidates(self):
         return self.candidates.all
+
+    def getSignedID(self):
+        value = signer.sign(self.id)
+        return value
+
     
 class Party(models.Model):
     party_name = models.CharField(max_length=250, blank=False, null=False)

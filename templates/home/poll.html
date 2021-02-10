@@ -18,7 +18,7 @@
     {% for position in poll.poll_positions.all %}
         
         <div class="card mb-3">
-            <div class="card-header bg-info">
+            <div class="card-header">
                 <div class="d-flex bd-highlight">
                     <div class="p-2 flex-grow-1 bd-highlight">{{position}}</div>
                     <div class="p-2 bd-highlight"><span class="badge bg-info ml-2">{{position.num_candidate}}</span> to select </div>
@@ -36,7 +36,16 @@
                         <div class="card-body">
                             <h5 class="card-title">{{candidate}}</h5>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        
+                        
+                       
+
+                        <div class="form-check form-switch">
+                            <label class="form-check-label"> 
+                            <input class="form-check-input s{{position.id}}" type="checkbox">
+                            Vote</label>
+                        </div>
+
                         </div>
                         </div>
                     </div>
@@ -48,5 +57,30 @@
 
 
 </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+
+    <script>
+         $(document).ready(function (){
+          
+             let max_limit = 1;
+             {% for position in poll.poll_positions.all %}
+
+                $(".s{{position.id}}:input:checkbox").each(function (index){
+                    this.checked = (".s{{position.id}}:input:checkbox" < {{position.num_candidate}});
+                }).change(function (){
+                    if ($(".s{{position.id}}:input:checkbox:checked").length > {{position.num_candidate}}){
+                        this.checked = false;
+                        alert("limit reached for {{position}}");
+                    }
+                });
+            {% endfor %}
+        });
+    </script>
+   
 
 {% endblock %}
