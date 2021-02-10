@@ -135,15 +135,16 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
 
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
+# STATICFILES_DIRS = [
+#     STATIC_DIR,
+# ]
+
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 AUTH_USER_EMAIL_UNIQUE = True
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-DISABLE_COLLECTSTATIC=1
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#DISABLE_COLLECTSTATIC=1
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
