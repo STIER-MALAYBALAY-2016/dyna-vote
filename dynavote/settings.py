@@ -145,5 +145,5 @@ MEDIA_URL = '/media/'
 AUTH_USER_EMAIL_UNIQUE = True
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#DISABLE_COLLECTSTATIC=1
+DISABLE_COLLECTSTATIC=1
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
