@@ -1,1 +1,1 @@
-web: gunicorn dynavote:wsgi
+web: gunicorn dynavote.wsgi
