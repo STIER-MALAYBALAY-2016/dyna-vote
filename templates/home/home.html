@@ -11,14 +11,14 @@
     <div class="row">
         {% for poll in poll_events %}
             <div class="col-md-4">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                         <h5 class="card-title">{{poll}}</h5>
                         <p class="card-text">{{poll.description}}</p>
                         
                         
                         {% if poll.is_vote_casted %}
-                            <a href="#" class="btn btn-success disabled">Vote Casted</a>
+                            <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-success">Vote Casted</a>
                         {% else %}
                             <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-danger">Vote</a>
                         {% endif %}

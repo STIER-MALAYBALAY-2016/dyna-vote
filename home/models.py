@@ -49,7 +49,7 @@ class Position(models.Model):
         return self.title
     
     def getCandidates(self):
-        return self.candidates.all
+        return self.candidates.all()
 
     def getSignedID(self):
         value = signer.sign(self.id)
@@ -64,7 +64,7 @@ class Party(models.Model):
         return self.party_name
 
 class Candidate(models.Model):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, related_name="position_candidates")
     candidate = models.ForeignKey(User, on_delete=models.CASCADE, related_name="candidacy")
     photo = models.ImageField(upload_to='candidates',blank=True,null=True)
     votes = models.ManyToManyField(User, through="Tally")
@@ -75,6 +75,10 @@ class Candidate(models.Model):
 
     def getNumVotes(self):
         return self.votes.count()
+
+    def getProgress(self):
+        progress = (self.getNumVotes() / User.objects.filter(is_voter=True).count()) * 100
+        return int(progress)
     
 class Tally(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)

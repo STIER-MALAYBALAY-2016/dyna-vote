@@ -12,12 +12,12 @@
         </ol>
     </nav>
 
-    <h1>{{poll}}</h1>
+    <h1 class="text-info">{{poll}}</h1>
     <hr>
 
     {% for position in poll.poll_positions.all %}
         
-        <div class="card mb-3">
+        <div class="card mb-3 shadow">
             <div class="card-header">
                 <div class="d-flex bd-highlight">
                     <div class="p-2 flex-grow-1 bd-highlight">{{position}}</div>
@@ -26,31 +26,48 @@
             </div>
 
             <div class="card-body">
-                {% for candidate in position.candidates.all %}
-                    <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                        <img height="150px" width="150px" src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg" alt="...">
-                        </div>
-                        <div class="col-md-10">
-                        <div class="card-body">
-                            <h5 class="card-title">{{candidate}}</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        
-                        
-                       
+            <div class="row">
+                {% for candidate in position.position_candidates.all %}
+                    
+                        <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-3">
+                                        <img height="100px" width="100px" src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg" alt="...">
+                                        </div>
+                                        <div class="col-md-9">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{candidate}}</h5>
+                                            <p class="card-text">{{candidate.party}}</p>
+                                        
+                                        
+                                    <div class="d-flex bd-highlight">
+                                        <div class="flex-grow-1 bd-highlight">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: {{candidate.getProgress}}%;" aria-valuenow="{{candidate.getProgress}}" aria-valuemin="0" aria-valuemax="100">{{candidate.getProgress}} %
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="bd-highlight">
+                                            <div class="form-check form-switch">
+                                                <label class="form-check-label"> 
+                                                <input class="form-check-input s{{position.id}}" type="checkbox">
+                                                Vote</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <div class="form-check form-switch">
-                            <label class="form-check-label"> 
-                            <input class="form-check-input s{{position.id}}" type="checkbox">
-                            Vote</label>
-                        </div>
 
+                                        
+
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
-                        </div>
-                    </div>
-                </div>
+                    
                 {% endfor %}
+                </div>
             </div>
         </div>
     {% endfor %}
