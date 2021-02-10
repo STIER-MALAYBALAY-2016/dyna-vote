@@ -1,1 +1,0 @@
-web: gunicorn dynavote:wsgi --log-file
