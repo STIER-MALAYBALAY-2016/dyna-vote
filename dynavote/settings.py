@@ -28,7 +28,7 @@ SECRET_KEY = '-x2ev08hf^*(9q+ae&lq$5m9-(i4n4h95((dj6x492i2l8#%df'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dynavote.herokuapp.com']
+ALLOWED_HOSTS = ['dynavote.herokuapp.com','127.0.0.1']
 
 
 # Application definition
