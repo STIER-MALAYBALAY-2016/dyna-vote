@@ -19,12 +19,20 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-    
 
+class PollEvent(models.Model):
+    poll_name = models.CharField(max_length=250, blank=False, null=False)
+    description = models.TextField(blank=True, null=True)
+    date_created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.poll_name
+    
 class Position(models.Model):
+    event = models.ForeignKey(PollEvent, on_delete=models.CASCADE, related_name="poll_positions")
     title = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
-    num_candidate = models.IntegerField(default=1) # Number of candidate to be selected
+    num_candidate = models.IntegerField(default=1) # Number of candidates to be selected
     candidates = models.ManyToManyField(User, through="Candidate")
 
     def __str__(self):
