@@ -6,6 +6,7 @@ from home import models
 admin.site.register(models.PollEvent)
 admin.site.register(models.User)
 admin.site.register(models.Position)
+admin.site.register(models.Party)
 
 
 class CandidateAdmin(admin.ModelAdmin):

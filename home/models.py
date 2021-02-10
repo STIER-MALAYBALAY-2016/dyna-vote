@@ -36,7 +36,8 @@ class PollEvent(models.Model):
     def is_vote_casted(self):
         has_votes = Tally.objects.filter(candidate__position__event=self).count()
         return True if has_votes > 0 else False
-    
+
+  
 class Position(models.Model):
     event = models.ForeignKey(PollEvent, on_delete=models.CASCADE, related_name="poll_positions")
     title = models.CharField(max_length=100, blank=False, null=False)
@@ -50,11 +51,19 @@ class Position(models.Model):
     def getCandidates(self):
         return self.candidates.all
     
+class Party(models.Model):
+    party_name = models.CharField(max_length=250, blank=False, null=False)
+    description = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+        return self.party_name
+
 class Candidate(models.Model):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
     candidate = models.ForeignKey(User, on_delete=models.CASCADE, related_name="candidacy")
     photo = models.ImageField(upload_to='candidates',blank=True,null=True)
     votes = models.ManyToManyField(User, through="Tally")
+    party = models.ForeignKey(Party, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return "{}".format(self.candidate)
