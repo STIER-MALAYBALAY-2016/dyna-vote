@@ -6,15 +6,20 @@ MALE = "MALE"
 FEMALE = "FEMALE"
 
 GENDER = (
-    (0, MALE),
-    (1, FEMALE)
+    (MALE, MALE),
+    (FEMALE, FEMALE)
 )
 
 class User(AbstractUser):
     is_voter = models.BooleanField(default=True)
+    is_candidate = models.BooleanField(default=False)
     gender = models.CharField(max_length=10,choices=GENDER, blank=False, null=False)
     phone_no = models.CharField(max_length=15, blank=True, null=True)
     address = models.CharField(max_length=250, blank=True, null=True)
+
+    def __str__(self):
+        return self.username
+    
 
 class Position(models.Model):
     title = models.CharField(max_length=100, blank=False, null=False)
@@ -32,7 +37,10 @@ class Candidate(models.Model):
     votes = models.ManyToManyField(User, through="Tally")
 
     def __str__(self):
-        return self.candidate_name
+        return "{}".format(self.candidate)
+
+    def getNumVotes(self):
+        return self.votes.count()
     
 class Tally(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
@@ -40,5 +48,5 @@ class Tally(models.Model):
     date_vote = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.candidate
+        return "{}".format(self.candidate)
     
