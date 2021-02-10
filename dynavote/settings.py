@@ -143,4 +143,5 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 AUTH_USER_EMAIL_UNIQUE = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+DISABLE_COLLECTSTATIC=1
