@@ -1,0 +1,52 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Poll Event</li>
+        </ol>
+    </nav>
+
+    <h1>{{poll}}</h1>
+    <hr>
+
+    {% for position in poll.poll_positions.all %}
+        
+        <div class="card mb-3">
+            <div class="card-header bg-info">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-grow-1 bd-highlight">{{position}}</div>
+                    <div class="p-2 bd-highlight"><span class="badge bg-info ml-2">{{position.num_candidate}}</span> to select </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                {% for candidate in position.candidates.all %}
+                    <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                        <img height="150px" width="150px" src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg" alt="...">
+                        </div>
+                        <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title">{{candidate}}</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

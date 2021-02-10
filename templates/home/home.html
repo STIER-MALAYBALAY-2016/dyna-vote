@@ -5,8 +5,29 @@
 
 <div class="container">
 
-home
-    
+    <h1>Poll Events</h1>
+    <hr>
+
+    <div class="row">
+        {% for poll in poll_events %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{poll}}</h5>
+                        <p class="card-text">{{poll.description}}</p>
+                        
+                        
+                        {% if poll.is_vote_casted %}
+                            <a href="#" class="btn btn-success disabled">Vote Casted</a>
+                        {% else %}
+                            <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-danger">Vote</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}
