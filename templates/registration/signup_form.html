@@ -1,0 +1,77 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<br>
+<br>
+<br>
+
+<div class="container">
+
+            <form method="post" novalidate>
+              <div class="card">
+                <div class="card-body">
+                <h2 style="text-align:center" class="font_mont">Register Account</h2>
+                <hr>
+
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+
+               
+
+                <div class="row">
+
+                  <div class="col-md-4">
+                      {{ form.first_name|as_crispy_field }} <br/>
+                      {{ form.last_name|as_crispy_field }} <br/>
+                      {{ form.phone_no|as_crispy_field }} <br/>
+                      
+                  </div>
+
+                  <div class="col-md-4">
+                    {{ form.gender|as_crispy_field }} <br/>
+                      {{ form.address|as_crispy_field }} <br/>
+                      {{ form.username|as_crispy_field }} <br/>
+                  </div>
+
+                  <div class="col-md-4">
+                      {{ form.email|as_crispy_field }} <br/>
+                      {{ form.password1|as_crispy_field }} <br/>
+                      {{ form.password2|as_crispy_field }} <br/>
+                  </div>
+
+                </div> 
+
+
+                <hr>
+
+                <div style="text-align:center;">
+                    <button type="submit" class="btn btn-danger pull-right">Sign Up</button>
+                </div>
+
+
+                <br>
+
+
+
+                  </div>
+            </div>
+            <br>
+            <p style="text-align:center;">
+              Already have an Account?
+              <a href="{% url 'login' %}">Login here</a>
+            </p>
+
+            </form>
+
+
+
+</div>
+
+<br>
+
+{% endblock %}

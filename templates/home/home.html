@@ -17,11 +17,7 @@
                         <p class="card-text">{{poll.description}}</p>
                         
                         
-                        {% if poll.is_vote_casted %}
-                            <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-success">Vote Casted</a>
-                        {% else %}
-                            <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-danger">Vote</a>
-                        {% endif %}
+                        <a href="{% url 'home:poll' poll_id=poll.getSignedID %}" class="btn btn-danger">Vote</a>
                     </div>
                 </div>
             </div>

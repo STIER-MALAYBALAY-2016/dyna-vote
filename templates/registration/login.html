@@ -1,0 +1,54 @@
+    {% extends 'registration/base.html' %}
+
+
+
+{% block content %}
+
+<br>
+<br>
+
+    <div class="d-flex justify-content-center">
+      <div class="col-md-4 col-sm-10">
+        <h1 class="text-center font_krona">Dyna Vote</h1>
+        <br>
+        <div class="shadow p-3 bg-white rounded">
+          <h4 class="text-muted font_mont">User login</h4>
+          <hr>
+          <form method="post">
+            {% csrf_token %}
+
+          {% if form.non_field_errors %}
+
+
+             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {% for error in form.non_field_errors %}
+                       <p{% if forloop.last %} class="mb-0 text-dark"{% endif %}>{{ error }}</p>
+                     {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            {% endif %}
+
+          <input type="hidden" name="next" value="{{ next }}">
+           
+              <input type="text" placeholder="Username" class="form-control mb-3" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+            
+              <input type="password" placeholder="Password" class="form-control mb-3" name="password" autocomplete="current-password" required="" id="id_password">
+         
+
+            <button type="submit" class="btn btn-info btn-block" name="button">Login</button>
+
+          </form>
+
+          <br>
+
+
+        </div>
+        <br>
+        <center>No account? <a href="{% url 'signup_form' %}">Sign Up here</a></center>
+      </div>
+    </div>
+
+
+
+{% endblock %}

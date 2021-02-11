@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.signing import Signer
 signer = Signer()
+from django import template
+register = template.Library()
 
 MALE = "MALE"
 FEMALE = "FEMALE"
@@ -33,11 +35,8 @@ class PollEvent(models.Model):
         value = signer.sign(self.id)
         return value
 
-    def is_vote_casted(self):
-        has_votes = Tally.objects.filter(candidate__position__event=self).count()
-        return True if has_votes > 0 else False
 
-  
+
 class Position(models.Model):
     event = models.ForeignKey(PollEvent, on_delete=models.CASCADE, related_name="poll_positions")
     title = models.CharField(max_length=100, blank=False, null=False)
@@ -79,6 +78,10 @@ class Candidate(models.Model):
     def getProgress(self):
         progress = (self.getNumVotes() / User.objects.filter(is_voter=True).count()) * 100
         return int(progress)
+
+    def getSignedID(self):
+        value = signer.sign(self.id)
+        return value
     
 class Tally(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
@@ -87,3 +90,7 @@ class Tally(models.Model):
 
     def __str__(self):
         return "{}".format(self.candidate)
+    
+    def getSignedID(self):
+        value = signer.sign(self.id)
+        return value

@@ -5,22 +5,32 @@
 
 <div class="container">
 
-    <nav aria-label="breadcrumb">
+  
+    <h1 class="text-info">{{poll}}</h1>
+      <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Poll Event</li>
         </ol>
     </nav>
-
-    <h1 class="text-info">{{poll}}</h1>
     <hr>
+
+    {% if is_vote_casted %}
+        <div class="alert alert-info">
+        You already casted your votes for this poll.
+        </div>
+    {% endif %}
+
+    <form method="post">
+
+    {% csrf_token %}
 
     {% for position in poll.poll_positions.all %}
         
         <div class="card mb-3 shadow">
             <div class="card-header">
                 <div class="d-flex bd-highlight">
-                    <div class="p-2 flex-grow-1 bd-highlight">{{position}}</div>
+                    <div class="p-2 flex-grow-1 bd-highlight"> <h3>{{position|upper}}</h3> </div>
                     <div class="p-2 bd-highlight"><span class="badge bg-info ml-2">{{position.num_candidate}}</span> to select </div>
                 </div>
             </div>
@@ -40,14 +50,13 @@
 
                                              <div class="form-check form-switch float-end">
                                                     <label class="form-check-label"> 
-                                                    <input class="form-check-input s{{position.id}}" type="checkbox">
+                                                    <input name="selected_candidates[]" value="{{candidate.getSignedID}}" class="form-check-input s{{position.id}}" {% if is_vote_casted %} disabled {% endif %} type="checkbox">
                                                     Vote</label>
                                                 </div>
 
                                             <h5 class="card-title">{{candidate}}</h5>
                                             {{candidate.party}} Party
                                         
-
 
                                                  <div class="progress">
                                                     <div class="progress-bar" role="progressbar" style="width: {{candidate.getProgress}}%;" aria-valuenow="{{candidate.getProgress}}" aria-valuemin="0" aria-valuemax="100">{{candidate.getProgress}} %
@@ -70,6 +79,19 @@
             </div>
         </div>
     {% endfor %}
+
+
+    
+
+     {% if not is_vote_casted %}
+        <div class="card shadow card-body">
+            <div>
+                <button type="submit" class="btn btn-danger text-white float-end"> Submit Votes</button>
+            </div>
+        </div>
+     {% endif %}
+
+      </form>
 
 
 </div>
