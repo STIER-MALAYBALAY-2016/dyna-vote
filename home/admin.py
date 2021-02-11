@@ -4,7 +4,7 @@ from home import models
 
 
 admin.site.register(models.PollEvent)
-admin.site.register(models.User)
+#admin.site.register(models.User)
 admin.site.register(models.Position)
 admin.site.register(models.Party)
 
@@ -15,4 +15,4 @@ class CandidateAdmin(admin.ModelAdmin):
     list_filter = ('position',)
 admin.site.register(models.Candidate, CandidateAdmin)
 
-admin.site.register(models.Tally)
+#admin.site.register(models.Tally)
